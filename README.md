@@ -1,9 +1,8 @@
 # Generated_Form
 
-A class for [UserSpice](https://userspice.com/) PHP framework 4.3 or newer
-Makes it easier to handle HTML forms.
-Made by [Faguss](https://ofp-faguss.com/). 
-See [forum](https://userspice.com/forums/showthread.php?tid=644&highlight=generated_form).
+A class for [UserSpice](https://userspice.com/) PHP framework 4.3 or newer. Makes it easier to handle HTML forms.
+
+Made by [Faguss](https://ofp-faguss.com/). See [forum](https://userspice.com/forums/showthread.php?tid=644&highlight=generated_form).
 
 **Includes:**
 * [Datetimepicker for Bootstrap 3](https://github.com/Eonasdan/bootstrap-datetimepicker/) by eonasdan
