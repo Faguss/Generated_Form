@@ -1,5 +1,5 @@
 <?php
-class Generated_Form {	// by Faguss (faguss@o2.pl) 05.12.19
+class Generated_Form {	// by Faguss (faguss@o2.pl) 06.12.19
 	public
 
 	// Attributes:
@@ -116,7 +116,7 @@ class Generated_Form {	// by Faguss (faguss@o2.pl) 05.12.19
 		$help                 = str_replace("\$max_image_size", $this->format_file_size($this->max_image_size), $help);
 
 		$id                   = count($this->controls);
-		$this->controls[]     = ["Type"=>"ImageFile", "Label"=>$label, "Help"=>$help, "TableColumn"=>$label];
+		$this->controls[]     = ["Type"=>"ImageFile", "Label"=>$label, "Help"=>$help, "TableColumn"=>$tablecolumn];
 		$this->image_column   = &$this->controls[$id]["TableColumn"];
 
 		$this->hidden["preserve_{$this->image_column}"] = "";
