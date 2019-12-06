@@ -24,6 +24,9 @@ Made by [Faguss](https://ofp-faguss.com/). See [forum](https://userspice.com/for
 
 ## Version history:
 
+### 06.12.19
+* add_imagefile() bugfix - "label" was being used as "tablecolumn"
+
 ### 05.12.19
 
 * add_text(), add_select(), add_imagefile(), add_button(), add_datetime() - changed order of arguments: "tablecolumn" is now first, "label" is now second and optional
