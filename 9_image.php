@@ -106,7 +106,7 @@ if (in_array($form->hidden["form_display"],["Add New","Edit"])) {
 			
 			if ($result) {
 				if ($form->hidden["form_action"] == "Add New") {
-					$form->hidden["store_id"]      = $db->lastId();
+					$form->hidden["store_id"]     = $db->lastId();
 					$form->hidden["form_display"] = "Edit";
 				}
 

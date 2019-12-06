@@ -307,7 +307,7 @@ if ($form->hidden["form_display"] == "Review") {
 		which is the button that I want to preserve.
 		
 		Optional argument for this function is a starting position:
-			remove_controls_until($form->hidden["store_id"]entification, $offset=-1)
+			remove_controls_until($identification, $offset=-1)
 		
 			
 		
