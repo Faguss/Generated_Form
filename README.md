@@ -13,11 +13,13 @@ Made by [Faguss](https://ofp-faguss.com/). See [forum](https://userspice.com/for
 
 ## Installation:
 
-* Copy files to your Userspice installation folder
-* Run query from "gf_example_tables.sql"
-* Add permissions for 1-12.php example files in the Admin Dashboard
-* Instructions on how to use the Generated_Form class you'll find in the examples. Start with 1_minimal.php (open it in a text editor)
+* Copy files to your UserSpice installation folder
+* Rename "uploaded_images/htaccess" to ".htaccess"
+* Run query from the "gf_example_tables.sql"
+* In the Admin Dashboard add permissions for 1-12.php example files
 * Example scripts are compatible with UserSpice 4.4. For other versions you'll have to edit header and footer includes
+* Instructions on how to use the Generated_Form class you'll find in these examples
+
 
 
 ## Version history:
