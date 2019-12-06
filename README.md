@@ -1,4 +1,5 @@
 #Generated_Form
+
 A class for [UserSpice](https://userspice.com/) PHP framework 4.3 or newer
 Makes it easier to handle HTML forms.
 Made by [Faguss](https://ofp-faguss.com/). 
@@ -12,6 +13,7 @@ Includes:
 * [bootstrap-combobox.js](https://github.com/danielfarrell/bootstrap-combobox) by Daniel Farrell
 
 ##Installation:
+
 * Copy files to your Userspice installation folder
 * Run query from "gf_example_tables.sql"
 * Add permissions for 1-12.php example files in the Admin Dashboard
@@ -20,7 +22,9 @@ Includes:
 
 
 ##Version history:
+
 ###05.12.19
+
 * add_text(), add_select(), add_imagefile(), add_button(), add_datetime() - changed order of arguments: "tablecolumn" is now first, "label" is now second and optional
 * add_datetime() - now handles localization; changed "close" icon in datepicker
 * add_emptyspan() - added optional argument $group
@@ -36,11 +40,13 @@ Includes:
 
 
 ###07.09.17
+
 * fixed typo in code for displaying radios
 * added "CheckboxInline" property for placing checkbox and radios inline
 * added "Addons" property for placing add-ons in text inputs
 
 ###25.08.17
+
 * added optional $property argument to add_text()
 * add_select() can now create radios
 * text type can be changed by adding passing "type='email'" as $property argument in add_text()
@@ -50,15 +56,18 @@ Includes:
 * class Validate - function passed() would return incorrect value - fixed
 
 ###18.08.17
+
 * optionally add_validation_rules() argument can be a string instead of an array with strings
 
 ###21.07.17
+
 * datetime conversion to moment.js format is done in display() rather than in add_datetime()
 * button type can be changed by adding passing "type='button'" as $property argument in add_button()
 * square brackets are automatically added to select multiple names in display()
 * reverted class Validate display_errors() change from previous version
 
 ###18.07.17
+
 * removed methods "add_timezone" and "add_checkboxes", instead you use "add_select" where $size is "datalist" or "checkbox"
 * checkboxes now have HTML ID property so they can be marked red in validation
 * method "add_select" - adds ID property to the array which is "TableColumn" name without square brackets
@@ -68,9 +77,11 @@ Includes:
 * class Validate - is_datetime - true value is equal to timestamp
 
 ###15.07.17
+
 * methods that add controls return proper item key
 * method change_control() - fixed numeric key handling
 * changed ID for TimeZone control
 
 ###14.07.17
+
 * First release
