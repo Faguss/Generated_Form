@@ -38,7 +38,7 @@ $form->add_text("Name");
 
 
 
-$form->add_text("Description", null, "What this shop sells?", "Computer hardware", "", "", 3);
+$form->add_text("Description", null, "What this shop sells?", "Computer hardware", "", 3);
 
 /* Added text input with:
 "Description"   as name of the column in the table in the database
