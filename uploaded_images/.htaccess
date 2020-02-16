@@ -1,0 +1,4 @@
+ForceType application/octet-stream
+<FilesMatch "(?i).jpe?g$">
+    ForceType image/jpeg
+</FilesMatch>
