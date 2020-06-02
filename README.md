@@ -13,7 +13,11 @@ Made by [Faguss](https://ofp-faguss.com/). See [forum](https://userspice.com/for
 
 ## Installation:
 
-* Copy files to your UserSpice installation folder
+* Copy folders *uploaded_images*, *users* and *userc* to your UserSpice installation folder
+
+**Examples installation:**
+
+* Copy php files to your UserSpice installation folder
 * Run query from the "gf_example_tables.sql"
 * In the Admin Dashboard add permissions for 1-12.php example files
 * Example scripts are compatible with UserSpice 4.4. For other versions you'll have to edit header and footer includes
