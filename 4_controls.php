@@ -34,7 +34,7 @@ $form->add_text("Password" , "Name", "Help Text", "Placeholder", "Default Value"
 
 
 
-$form->add_button("Name", "Value", "Button", "btn-info btn-lg", "ButtonID", "STYLE=\"margin-bottom:1em;\"");
+$form->add_button("Name", "Value", "Button", "btn-info btn-lg", "ButtonID", "style=\"margin-bottom:1em;\"");
 /*
 	add_button($name, $value, $text=null, $class="btn-primary", $id="", $property="")
 	
@@ -49,9 +49,9 @@ $form->add_button("Name", "Value", "Button", "btn-info btn-lg", "ButtonID", "STY
 
 
 
-$form->add_select("Number_select"  , "Select"         , "Help Text", [1,2,3], 2, 0         , "STYLE=\"background-color:#f6ffe6;\"");
-$form->add_select("Number_multiple", "Select Multiple", "Help Text", [1,2,3], 2, 3         , "STYLE=\"background-color:#f6ffe6;\"");
-$form->add_select("Number_datalist", "Datalist"       , "Help Text", [1,2,3], 2, "datalist", "STYLE=\"background-color:#f6ffe6;\"");
+$form->add_select("Number_select"  , "Select"         , "Help Text", [1,2,3], 2, 0         , "style=\"background-color:#f6ffe6;\"");
+$form->add_select("Number_multiple", "Select Multiple", "Help Text", [1,2,3], 2, 3         , "style=\"background-color:#f6ffe6;\"");
+$form->add_select("Number_datalist", "Datalist"       , "Help Text", [1,2,3], 2, "datalist", "style=\"background-color:#f6ffe6;\"");
 $form->add_select("Number_checkbox", "Checkboxes"     , "Help Text", [1,2,3], 2, "checkbox", "onClick=\"alert('You\'ve clicked on '+this.value);\"");
 $form->add_select("Number_radio"   , "Radios"         , "Help Text", [1,2,3], 2, "radio");
 /*
@@ -142,7 +142,7 @@ $form->add_space(4);
 	
 	$amount - how many new lines
 	
-	This will add <BR />
+	This will add <br>
 */
 
 
@@ -169,13 +169,13 @@ $form->add_emptyspan("custom_field", "custom_field_group");
 	$id    - HTML ID property
 	$group - HTML ID property for an entire control group
 
-	This will add <SPAN> wrapped in a form-group. For use with JS
+	This will add <span> wrapped in a form-group. For use with JS
 */
 
 
 
 
-$form->add_html("<SCRIPT TYPE=\"text/javascript\">document.getElementById('custom_field').innerHTML='Custom span'</SCRIPT>");
+$form->add_html("<script type=\"text/javascript\">document.getElementById('custom_field').innerHTML='Custom span'</script>");
 /*
 	add_html($code)
 	

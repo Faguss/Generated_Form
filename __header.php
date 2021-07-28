@@ -19,8 +19,8 @@ $uid   = $user->data()->id;
 $token = $_POST["csrf"];
 
 /*if (!Token::check($token))
-	die("<DIV ID=\"page-wrapper\"><DIV CLASS=\"container\">Page expired. Try again from home page</DIV></DIV>");*/
+	die("<div id=\"page-wrapper\"><div class=\"container\">Page expired. Try again from home page</div></div>");*/
 ?>
 
-<DIV ID="page-wrapper">
-<DIV CLASS="container">
+<div id="page-wrapper">
+<div class="container">

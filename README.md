@@ -1,6 +1,6 @@
 # Generated_Form
 
-A class for [UserSpice](https://userspice.com/) PHP framework 4.3 or newer. Makes it easier to handle HTML forms.
+A class for [UserSpice](https://userspice.com/) PHP framework 4.3 and 4.4. Makes it easier to handle HTML forms.
 
 Made by [Faguss](https://ofp-faguss.com/). See [forum](https://userspice.com/forums/showthread.php?tid=644&highlight=generated_form).
 
@@ -26,6 +26,14 @@ Made by [Faguss](https://ofp-faguss.com/). See [forum](https://userspice.com/for
 
 
 ## Version history:
+
+### 28.07.21
+* added file: "pl.js"
+* added property "DivInline" to modify attributes for extra div wrap for inlined controls
+* added property "Text" for static controls to separate what is displayed from the "value" attribute
+* if "Label" is empty then "TableColumn" is used as a validation display name (instead of being empty)
+* fixed bug with parsing datetime when milliseconds were present
+* lowercase html
 
 ### 06.12.19
 * add_imagefile() bugfix - "label" was being used as "tablecolumn"

@@ -35,12 +35,12 @@ $uid   = $user->data()->id;
 $token = $_POST["csrf"];
 
 if (!Token::check($token))
-	die("<DIV ID=\"page-wrapper\"><DIV CLASS=\"container\">Page expired. Try again from home page</DIV></DIV>");
+	die("<div id=\"page-wrapper\"><div class=\"container\">Page expired. Try again from home page</div></div>");
 ?>
 
 
-<DIV ID="page-wrapper">
-<DIV CLASS="container">
+<div id="page-wrapper">
+<div class="container">
 
 
 <?php
@@ -50,7 +50,7 @@ $form = new Generated_Form(["form_action", "form_display", "store_id", "store_na
 if ($form->hidden["form_action"] == "Main Menu")
 	Redirect::to('11_menu.php');
 
-$form->title = "{$form->hidden["form_display"]} Store <B>{$form->hidden["store_name"]}</B>";
+$form->title = "{$form->hidden["form_display"]} Store <b>{$form->hidden["store_name"]}</b>";
 
 
 
@@ -79,7 +79,7 @@ if (in_array($form->hidden["form_display"],["Add New","Edit"])) {
 	$form->input_size = 9;
 	
 	$locations = [
-		["Pick one","","SELECTED DISABLED"], 
+		["Pick one","","selected disabled"], 
 		"Africa", 
 		"Asia", 
 		"Australia", 
@@ -138,7 +138,7 @@ if (in_array($form->hidden["form_display"],["Add New","Edit"])) {
 				}
 			
 				$form->hidden["store_name"]  = $data["Name"];
-				$form->title = "{$form->hidden["form_display"]} Store <B>{$form->hidden["store_name"]}</B>";
+				$form->title = "{$form->hidden["form_display"]} Store <b>{$form->hidden["store_name"]}</b>";
 			}
 		}
 	} 
@@ -163,7 +163,7 @@ if (in_array($form->hidden["form_display"],["Add New","Edit"])) {
 	
 // 7_selects.php
 if ($form->hidden["form_display"] == "HR") {
-	$form->title = "HR Management for the <B>{$form->hidden["store_name"]}</B>";
+	$form->title = "HR Management for the <b>{$form->hidden["store_name"]}</b>";
 
 	$lang = array_merge($lang,array(
 		"GF_DISMISS_OK" => "Dismissed %m1% worker%m2%",
@@ -309,7 +309,7 @@ if ($form->hidden["form_display"] == "HR") {
 	
 // 8_modifycontrols.php
 if ($form->hidden["form_display"] == "Review") {
-	$form->title = "Performance Review at the <B>{$form->hidden["store_name"]}</B>";
+	$form->title = "Performance Review at the <b>{$form->hidden["store_name"]}</b>";
 	$form->add_select("personID"   , "Employee list", "Select a person"                         , []);
 	$form->add_text  ("Grade"      , "New Rank"     , "Worker's position in the company (1-100)", "1");
 	$form->add_button("form_action", "Review"       , "Adjust"                                  , "btn-primary");
@@ -486,7 +486,7 @@ if ($form->hidden["form_display"] == "Delete")
 		$employees = $db->cell("gf_storesppl.COUNT(*)",["storeID","=",$form->hidden["store_id"]]);
 		
 		if (!empty($employees))
-			$form->add_html("This store is employing <B>$employees worker" . ($employees==1 ? "" : "s") . "</B>. Are you sure?<BR /><BR /><BR />");
+			$form->add_html("This store is employing <b>$employees worker" . ($employees==1 ? "" : "s") . "</b>. Are you sure?<br><br><br>");
 	
 		$form->add_button("form_action", $form->hidden["form_display"], null, "btn-danger btn-sm");
 	}

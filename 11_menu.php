@@ -10,8 +10,8 @@ if (!$user->isLoggedIn())
 	Redirect::to('users\login.php');
 ?>
 
-<DIV ID="page-wrapper">
-<DIV CLASS="container">
+<div id="page-wrapper">
+<div class="container">
 		
 <?php
 
@@ -23,12 +23,12 @@ $_SESSION["store_id"] = [];
 
 // Open custom container
 $html = "
-<DIV CLASS=\"col-lg-4\">
-	<DIV CLASS=\"page-header\">
-		<H2>Stores:</H2>
-	</DIV>
-	<DIV CLASS=\"panel panel-default\">
-		<DIV CLASS=\"panel-body\" STYLE=\"background:linear-gradient(to bottom, rgba(233,246,253,0.5) 0%,rgba(211,238,251,0.5) 100%); background-repeat:repeat-x;\">";
+<div class=\"col-lg-4\">
+	<div class=\"page-header\">
+		<h2>Stores:</h2>
+	</div>
+	<div class=\"panel panel-default\">
+		<div class=\"panel-body\" style=\"background:linear-gradient(to bottom, rgba(233,246,253,0.5) 0%,rgba(211,238,251,0.5) 100%); background-repeat:repeat-x;\">";
 
 		
 
@@ -95,9 +95,9 @@ $html .= $form->display();
 
 // Display the entire thing
 $html .= "
-		</DIV><!-- end panel body -->
-	</DIV><!-- end panel -->
-</DIV><!-- end column -->\n";
+		</div><!-- end panel body -->
+	</div><!-- end panel -->
+</div><!-- end column -->\n";
 
 echo $html;
 ?>
@@ -110,6 +110,6 @@ echo $html;
 
 
 
-<BR />
-<BR />
+<br>
+<br>
 <?php include("__footer.php"); ?>

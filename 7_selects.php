@@ -14,7 +14,7 @@ if (empty($form->hidden["form_display"])) {
 	$form->hidden["store_name"]   = "Planettaxon";
 }
 
-$form->title = "HR Management for the <B>{$form->hidden["store_name"]}</B>";
+$form->title = "HR Management for the <b>{$form->hidden["store_name"]}</b>";
 
 
 

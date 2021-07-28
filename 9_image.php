@@ -25,7 +25,7 @@ if (empty($form->hidden["form_display"])) {
 
 if (in_array($form->hidden["form_display"],["Add New","Edit"])) {
 	$locations = [
-		["Pick one","","SELECTED DISABLED"], 
+		["Pick one","","selected disabled"], 
 		"Africa", 
 		"Asia", 
 		"Australia", 
@@ -137,7 +137,7 @@ if (in_array($form->hidden["form_display"],["Add New","Edit"])) {
 
 
 
-$form->title = "{$form->hidden["form_display"]} Store <B>{$form->hidden["store_name"]}</B>";
+$form->title = "{$form->hidden["form_display"]} Store <b>{$form->hidden["store_name"]}</b>";
 
 // display() will carry over hidden variables so that the image will be kept
 echo $form->display();

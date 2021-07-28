@@ -1,6 +1,6 @@
 
-	</DIV> <!-- /.container -->
-</DIV> <!-- /.wrapper -->
+	</div> <!-- /.container -->
+</div> <!-- /.wrapper -->
 
 
 <?php #for older userspice: require_once $abs_us_root.$us_url_root.'users/includes/page_footer.php'; // the final html footer copyright row + the external js calls ?>

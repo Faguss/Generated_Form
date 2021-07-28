@@ -20,7 +20,7 @@ if (empty($form->hidden["form_display"])) {
 if ($form->hidden["form_action"] == "Go to HR")
 	Redirect::to("7_selects.php");
 
-$form->title = "Performance Review at the <B>{$form->hidden["store_name"]}</B>";
+$form->title = "Performance Review at the <b>{$form->hidden["store_name"]}</b>";
 
 
 

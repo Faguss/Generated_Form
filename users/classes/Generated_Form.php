@@ -1,5 +1,5 @@
 <?php
-class Generated_Form {	// by Faguss (faguss@o2.pl) 06.12.19
+class Generated_Form {	// by Faguss (faguss@o2.pl) 28.07.21
 	public
 
 	// Attributes:
@@ -152,6 +152,7 @@ class Generated_Form {	// by Faguss (faguss@o2.pl) 06.12.19
 		if (function_exists("lang"))
 			switch(lang("THIS_CODE")) {
 				case "ru-RU" : $locale_file="ru"; break;
+				case "pl-PL" : $locale_file="pl"; break;
 			}
 
 		$this->include_file([
@@ -296,9 +297,13 @@ class Generated_Form {	// by Faguss (faguss@o2.pl) 06.12.19
 
 				// convert date format
 				if ($control["Type"] == "DateTime") {
-					$iso8601     = Input::get($control["TableColumn"]."_datetime");
-					$iso8601_php = substr($iso8601, 0, strpos($iso8601,".")) . substr($iso8601, strpos($iso8601,"+"));
-					$object      = DateTime::createFromFormat(DateTime::ATOM, $iso8601_php);
+					$iso8601 = Input::get($control["TableColumn"]."_datetime");
+					$dot     = strpos($iso8601,".");
+					
+					if ($dot !== FALSE)
+						$iso8601 = substr($iso8601, 0, $dot) . substr($iso8601, $dot+4);
+					
+					$object = DateTime::createFromFormat(DateTime::ATOM, $iso8601);
 					
 					if ($object  &&  DateTime::getLastErrors()["warning_count"]==0  &&  DateTime::getLastErrors()["error_count"]==0)
 						$input = $object->format($control["StoreFormat"]);
@@ -490,7 +495,7 @@ class Generated_Form {	// by Faguss (faguss@o2.pl) 06.12.19
 		foreach ($this->controls as $control)
 			if (isset($control["TableColumn"])  &&  $control["TableColumn"]!=""  &&  isset($control["Type"])  &&  $control["Type"]!="ImageFile")
 				if (array_search($control["TableColumn"], $exclude) === FALSE)
-					$this->validation_rules[$control["TableColumn"]] = array_merge( ["display"=>$control["Label"]], $rules);
+					$this->validation_rules[$control["TableColumn"]] = array_merge(["display"=>$control["Label"]!="" ? $control["Label"] : $control["TableColumn"]], $rules);
 	}
 
 	function add_validation_rules($columns, $rules) {
@@ -580,7 +585,7 @@ class Generated_Form {	// by Faguss (faguss@o2.pl) 06.12.19
 
 		// Open container
 		if ($this->add_container)
-			$html .= "<DIV CLASS=\"col-lg-{$this->size}". ($this->offset>=0 ? " col-lg-offset-{$this->offset}" : "") ."\">";
+			$html .= "<div class=\"col-lg-{$this->size}". ($this->offset>=0 ? " col-lg-offset-{$this->offset}" : "") ."\">";
 
 		// Output alerts
 		foreach ($this->alerts as $alert) {
@@ -595,16 +600,16 @@ class Generated_Form {	// by Faguss (faguss@o2.pl) 06.12.19
 			}
 
 			$html .= "
-			<DIV CLASS=\"alert alert-{$class}\" ROLE=\"alert\">
-				<SPAN CLASS=\"glyphicon glyphicon-{$glyph}\" STYLE=\"font-size:16px;\" ARIA-HIDDEN=\"true\"></SPAN>
+			<div class=\"alert alert-{$class}\" role=\"alert\">
+				<span class=\"glyphicon glyphicon-{$glyph}\" style=\"font-size:16px;\" aria-hidden=\"true\"></SPAN>
 				&nbsp;&nbsp;{$alert["Message"]}
-			</DIV>";
+			</div>";
 		};
 
 
 		// Close if error
 		if ($this->failed_state)
-			return "$html</DIV>";
+			return "$html</div>";
 
 
 		// Include files
@@ -613,10 +618,10 @@ class Generated_Form {	// by Faguss (faguss@o2.pl) 06.12.19
 			$ext  = substr( strrchr($file,'.'), 1 );
 
 			if ($ext == "js")
-				$code = "<SCRIPT TYPE=\"text/javascript\" SRC=\"{$file}\"></SCRIPT>";
+				$code = "<script type=\"text/javascript\" src=\"{$file}\"></script>";
 			else
 				if ($ext == "css")
-					$code = "<LINK REL=\"stylesheet\" HREF=\"{$file}\" />";
+					$code = "<link rel=\"stylesheet\" href=\"{$file}\" />";
 
 			echo $code;
 		}
@@ -624,29 +629,29 @@ class Generated_Form {	// by Faguss (faguss@o2.pl) 06.12.19
 
 		// Second container
 		if ($this->add_container)
-			$html .= "<DIV CLASS=\"well bs-component\">";
+			$html .= "<div class=\"well bs-component\">";
 
 		// Open form
-		$html .= "<FORM ID=\"{$this->id}\" CLASS=\"{$this->form_class}\" ENCTYPE=\"multipart/form-data\" METHOD=\"post\" ACTION=\"{$this->action}\"><FIELDSET>";
+		$html .= "<form id=\"{$this->id}\" class=\"{$this->form_class}\" enctype=\"multipart/form-data\" method=\"post\" action=\"{$this->action}\"><fieldset>";
 
 		if ($this->title != "")
-			$html .= "<LEGEND>{$this->title}</LEGEND>";
+			$html .= "<legend>{$this->title}</legend>";
 
 
-		// Output hidden variables
+		// Generate hidden variables
 		if ($this->image_column != "") {
-			$this->hidden["MAX_FILE_SIZE"]                  = $this->max_image_size;
+			$this->hidden["MAX_FILE_SIZE"] = $this->max_image_size;
 			
 			if (isset($this->data[$this->image_column]))
 				$this->hidden["preserve_{$this->image_column}"] = $this->data[$this->image_column];
 		}
 
 		foreach ($this->hidden as $variable=>$value)
-			$html .= "<INPUT TYPE=\"hidden\" ID=\"$variable\" NAME=\"$variable\" VALUE=\"$value\" />";
+			$html .= "<input type=\"hidden\" id=\"$variable\" name=\"$variable\" value=\"$value\" />";
 
 
 
-		// Output controls
+		// Generate controls
 		$inline_enabled = false;
 		$inline_wrap    = true;
 		$i              = -1;
@@ -654,22 +659,22 @@ class Generated_Form {	// by Faguss (faguss@o2.pl) 06.12.19
 		$keys           = array_keys($this->controls);
 
 		foreach ($this->controls as $control) {
-			$undefined_indexes = ["Default", "GroupClass", "Group", "Help", "CloseInline", "TableColumn", "Share", "Label", "Class", "Property"];
+			$undefined_indexes = ["Default", "GroupClass", "Group", "Help", "CloseInline", "TableColumn", "Share", "Label", "Class", "Property", "DivInline"];
 			
 			foreach ($undefined_indexes as $index)
 				if (!isset($control[$index]))
 					$control[$index] = "";
 			
 			$i++;
-			$value = isset($this->data[$control["TableColumn"]]) ? $this->data[$control["TableColumn"]] : $control["Default"];
+			$value   = isset($this->data[$control["TableColumn"]]) ? $this->data[$control["TableColumn"]] : $control["Default"];
 			$ID      = isset($control["ID"]) ? $control["ID"] : $control["TableColumn"];
 			$content = "";
 			$wrap    = "
-			<DIV CLASS=\"form-group {$control["GroupClass"]}\" {$control["Group"]}>
-				<LABEL FOR=\"{$ID}\" CLASS=\"col-lg-{$this->label_size} ".(isset($control["LabelClass"]) ? $control["LabelClass"] : "control-label")."\">{$control["Label"]}</LABEL>";
+			<div class=\"form-group {$control["GroupClass"]}\" {$control["Group"]}>
+				<label for=\"{$ID}\" class=\"col-lg-{$this->label_size} ".(isset($control["LabelClass"]) ? $control["LabelClass"] : "control-label")."\">{$control["Label"]}</label>";
 				
 			if ($this->add_input_container)
-				$wrap .= "<DIV CLASS=\"col-lg-{$this->input_size}\">";
+				$wrap .= "<div class=\"col-lg-{$this->input_size}\">";
 
 
 			// Controls in a single line ------------------------------------------------------------------
@@ -679,7 +684,7 @@ class Generated_Form {	// by Faguss (faguss@o2.pl) 06.12.19
 					$inline_wrap    = $control["Inline"] > 0;
 
 					if ($inline_wrap)
-						$wrap .= "<DIV CLASS=\"form-group row\" STYLE=\"margin-top:0; margin-bottom:0;\">";
+						$wrap .= "<div class=\"form-group row\" style=\"margin-top:0; margin-bottom:0;\">";
 				} else
 					$wrap = "";
 			}//--------------------------------------------------------------------------------------------
@@ -687,10 +692,10 @@ class Generated_Form {	// by Faguss (faguss@o2.pl) 06.12.19
 			
 			// Input addons -------------------------------------------------------------------------------
 			if (isset($control["Addons"])) {
-				$content .= "<DIV CLASS=\"input-group\">";
+				$content .= "<div class=\"input-group\">";
 				
 				foreach ($control["Addons"][0] as $addon)
-					$content .= "<DIV CLASS=\"input-group-addon\">$addon</DIV>";
+					$content .= "<div class=\"input-group-addon\">$addon</div>";
 			}//--------------------------------------------------------------------------------------------
 
 
@@ -698,7 +703,7 @@ class Generated_Form {	// by Faguss (faguss@o2.pl) 06.12.19
 			{
 				case "Text" : 
 				$type     = stripos($control["Property"], "type=")===false ? "TYPE=\"text\"" : "";
-				$content .= "<INPUT {$type} CLASS=\"form-control {$control["Class"]}\" ID=\"{$ID}\" NAME=\"{$control["TableColumn"]}\" VALUE=\"{$value}\" PLACEHOLDER=\"{$control["Placeholder"]}\" {$control["Property"]}>";
+				$content .= "<input {$type} class=\"form-control {$control["Class"]}\" id=\"{$ID}\" name=\"{$control["TableColumn"]}\" value=\"{$value}\" placeholder=\"{$control["Placeholder"]}\" {$control["Property"]}>";
 				break;
 
 
@@ -712,28 +717,28 @@ class Generated_Form {	// by Faguss (faguss@o2.pl) 06.12.19
 					$rows++;
 				}
 
-				$content .= "<TEXTAREA CLASS=\"form-control {$control["Class"]}\" ROWS=\"{$rows}\" ID=\"{$ID}\" NAME=\"{$control["TableColumn"]}\" PLACEHOLDER=\"{$control["Placeholder"]}\" {$control["Property"]}>{$value}</TEXTAREA>";
+				$content .= "<textarea class=\"form-control {$control["Class"]}\" rows=\"{$rows}\" id=\"{$ID}\" name=\"{$control["TableColumn"]}\" placeholder=\"{$control["Placeholder"]}\" {$control["Property"]}>{$value}</textarea>";
 				break;
 
 
 				case "Static" : 
-				$content .= "<P CLASS=\"form-control-static {$control["Class"]}\" ID=\"{$ID}\" NAME=\"{$control["TableColumn"]}\" VALUE=\"{$value}\" {$control["Property"]}>{$value}</P>";
+				$content .= "<p class=\"form-control-static {$control["Class"]}\" id=\"{$ID}\" name=\"{$control["TableColumn"]}\" value=\"{$value}\" {$control["Property"]}>" . (isset($control["Text"]) ? $control["Text"] : $value) . "</p>";
 				break;
 
 
 				case "Select" : 
 				switch($control["SubType"]) {
 					case "datalist" :
-						$content .= "<INPUT CLASS=\"form-control {$control["Class"]}\" NAME=\"{$control["TableColumn"]}\" VALUE=\"{$value}\" ID=\"{$ID}\" {$control["Property"]} LIST=\"{$ID}_datalist\"><DATALIST ID=\"{$ID}_datalist\">";	
+						$content .= "<input class=\"form-control {$control["Class"]}\" name=\"{$control["TableColumn"]}\" value=\"{$value}\" id=\"{$ID}\" {$control["Property"]} list=\"{$ID}_datalist\"><datalist id=\"{$ID}_datalist\">";	
 						break;
 
 					case "checkbox" : 
 					case "radio"    : 
-						$content .= "<DIV ID=\"{$ID}\">";
+						$content .= "<div id=\"{$ID}\">";
 						break;
 
 					default : 
-						$content .= "<SELECT ". ($control["Size"]>0 ? "MULTIPLE SIZE={$control["Size"]}" : "") . " CLASS=\"form-control {$control["Class"]}\" NAME=\"{$control["TableColumn"]}". ($control["Size"]>0 ? "[]" : "") . "\" ID=\"{$ID}\" {$control["Property"]}>\n";
+						$content .= "<select ". ($control["Size"]>0 ? "multiple size={$control["Size"]}" : "") . " class=\"form-control {$control["Class"]}\" name=\"{$control["TableColumn"]}". ($control["Size"]>0 ? "[]" : "") . "\" id=\"{$ID}\" {$control["Property"]}>\n";
 						break;
 				}
 
@@ -771,20 +776,20 @@ class Generated_Form {	// by Faguss (faguss@o2.pl) 06.12.19
 							$content .= "<optgroup label=\"{$option_name}\">";
 							$optgroup_opened = true;
 						} else
-							$content .= "<OPTION {$option_extra} VALUE=\"{$option_value}\" " . ($isSelected ? "SELECTED" : "") . ">{$option_name}</OPTION>\n";
+							$content .= "<option {$option_extra} value=\"{$option_value}\" " . ($isSelected ? "selected" : "") . ">{$option_name}</option>\n";
 						
 					} else {
 						if (!$control["CheckboxInline"])
-							$content .= "<DIV CLASS=\"{$control["SubType"]}\" ID=\"{$ID}_{$number}\">";
+							$content .= "<div class=\"{$control["SubType"]}\" id=\"{$ID}_{$number}\">";
 						
 						$content .= "
-							<LABEL " . ($control["CheckboxInline"] ? "CLASS=\"{$control["SubType"]}-inline\"" : "") . ">
-								<INPUT TYPE=\"{$control["SubType"]}\" ID=\"{$ID}_{$number}_input\" NAME=\"{$control["TableColumn"]}". ($control["SubType"]=="checkbox" ? "[]" : "") . "\" VALUE=\"{$option_value}\" {$option_extra} " . ($isSelected ? "CHECKED" : "") . " {$control["Property"]}>
+							<label " . ($control["CheckboxInline"] ? "class=\"{$control["SubType"]}-inline\"" : "") . ">
+								<input type=\"{$control["SubType"]}\" id=\"{$ID}_{$number}_input\" name=\"{$control["TableColumn"]}". ($control["SubType"]=="checkbox" ? "[]" : "") . "\" value=\"{$option_value}\" {$option_extra} " . ($isSelected ? "checked" : "") . " {$control["Property"]}>
 								{$option_name}
-							</LABEL>";
+							</label>";
 							
 						if (!$control["CheckboxInline"])
-							$content .= "</DIV>";
+							$content .= "</div>";
 					}
 
 					$number++;
@@ -794,10 +799,10 @@ class Generated_Form {	// by Faguss (faguss@o2.pl) 06.12.19
 					$content .= "</optgroup>";
 
 				switch($control["SubType"]) {
-					case "datalist" : $content .= "</DATALIST>\n"; break;
+					case "datalist" : $content .= "</datalist>\n"; break;
 					case "radio"    : 
-					case "checkbox" : $content .= "</DIV>"       ; break;
-					default         : $content .= "</SELECT>\n"  ; break;
+					case "checkbox" : $content .= "</div>"       ; break;
+					default         : $content .= "</select>\n"  ; break;
 				}
 				break;
 
@@ -820,25 +825,25 @@ class Generated_Form {	// by Faguss (faguss@o2.pl) 06.12.19
 					if ($extension == "paa") {
 						$src = "";
 						$alt = "PAA. No preview";
-					};
+					}
 
 					$content .= "
-					<IMG SRC=\"$src\" CLASS=\"img-thumbnail\" ALT=\"$alt\">
-					<DIV CLASS=\"checkbox\">
-						<LABEL>
-							<INPUT TYPE=\"checkbox\" NAME=\"remove_{$this->image_column}\" VALUE=\"1\"> Remove
-						</LABEL>
-					</DIV>
+					<img src=\"$src\" class=\"img-thumbnail\" alt=\"$alt\">
+					<div class=\"checkbox\">
+						<label>
+							<input type=\"checkbox\" name=\"remove_{$this->image_column}\" value=\"1\"> Remove
+						</label>
+					</div>
 					<br>";
 				}
 
-				$content .= "<INPUT TYPE=\"file\" ID=\"{$ID}\" NAME=\"{$control["TableColumn"]}\" {$control["Property"]} hidden>";
+				$content .= "<input type=\"file\" id=\"{$ID}\" name=\"{$control["TableColumn"]}\" {$control["Property"]} hidden>";
 				break;
 
 
 				case "Button" : 
 				$type     = stripos($control["Property"], "type=")===false ? "TYPE=\"submit\"" : "";
-				$content .= "<BUTTON {$type} CLASS=\"btn {$control["Class"]}\" ID=\"{$ID}\" NAME=\"{$control["Name"]}\" VALUE=\"{$control["Value"]}\" {$control["Property"]}>{$control["Text"]}</BUTTON>";
+				$content .= "<button {$type} class=\"btn {$control["Class"]}\" id=\"{$ID}\" name=\"{$control["Name"]}\" value=\"{$control["Value"]}\" {$control["Property"]}>{$control["Text"]}</button>";
 				break;
 
 
@@ -891,15 +896,15 @@ class Generated_Form {	// by Faguss (faguss@o2.pl) 06.12.19
 				
 				$moment   = strtr($control["DisplayFormat"], $replacements);
 				$content .= "
-				<DIV CLASS=\"input-group date\" ID=\"{$ID}\">
-					<INPUT TYPE=\"text\" CLASS=\"form-control\" ID=\"{$ID}_input\" NAME=\"{$control["TableColumn"]}\" {$control["Property"]}>
-					<SPAN CLASS=\"input-group-addon\">
-						<SPAN CLASS=\"fa fa-calendar\"></SPAN>
+				<div class=\"input-group date\" id=\"{$ID}\">
+					<input type=\"text\" class=\"form-control\" id=\"{$ID}_input\" name=\"{$control["TableColumn"]}\" {$control["Property"]}>
+					<span class=\"input-group-addon\">
+						<span class=\"fa fa-calendar\"></span>
 						&nbsp;
-						<SPAN CLASS=\"glyphicon glyphicon-time\"></SPAN>
-					</SPAN>
-				</DIV>
-				<SCRIPT TYPE=\"text/javascript\">
+						<span class=\"glyphicon glyphicon-time\"></span>
+					</span>
+				</div>
+				<script type=\"text/javascript\">
 					moment.locale('{$control["Language"]}');
 					$(function () {
 						$('#{$ID}').datetimepicker({
@@ -922,7 +927,7 @@ class Generated_Form {	// by Faguss (faguss@o2.pl) 06.12.19
 					});	
 					$('#{$ID}_input').attr('placeholder', moment('{$value}').format('{$moment}'));
 					$('#{$ID}_datetime').attr('value',moment('{$value}').toISOString(true));
-				</SCRIPT>";
+				</script>";
 				break;
 
 
@@ -933,12 +938,12 @@ class Generated_Form {	// by Faguss (faguss@o2.pl) 06.12.19
 
 
 				case "EmptySpan" : 
-				$content .= "<SPAN ID=\"{$ID}\"></SPAN>";
+				$content .= "<span id=\"{$ID}\"></span>";
 				break;
 
 
 				case "Header" : 
-				$content .= "<H{$control["Level"]} ID=\"{$ID}\">{$control["Text"]}</H{$control["Level"]}>";
+				$content .= "<h{$control["Level"]} id=\"{$ID}\">{$control["Text"]}</h{$control["Level"]}>";
 				break;
 			}
 			
@@ -946,20 +951,20 @@ class Generated_Form {	// by Faguss (faguss@o2.pl) 06.12.19
 			// Close addons -------------------------------------------------------------------------------
 			if (isset($control["Addons"])) {
 				foreach ($control["Addons"][1] as $addon)
-					$content .= "<DIV CLASS=\"input-group-addon\">$addon</DIV>";
+					$content .= "<div class=\"input-group-addon\">$addon</div>";
 				
-				$content .= "</DIV>";
+				$content .= "</div>";
 			}//--------------------------------------------------------------------------------------------
 
 
 			if (strlen($control["Help"]) > 0)
-				$content .= "<SPAN CLASS=\"help-block\">{$control["Help"]}</SPAN>";
+				$content .= "<span class=\"help-block\">{$control["Help"]}</span>";
 
 
-			// Extra wrap for inline elements------------------------------------------
+			// Extra wrap for inline elements------------------------------------------------------------------
 			if ($inline_enabled  &&  $inline_wrap)
-				$content = "<DIV CLASS=\"col-lg-{$control["Inline"]}\">$content</DIV>";
-			//-------------------------------------------------------------------------
+				$content = "<div class=\"col-lg-{$control["Inline"]}\" {$control["DivInline"]}>$content</div>";
+			//-------------------------------------------------------------------------------------------------
 
 
 			$html .= $wrap . $content . "\n";
@@ -971,23 +976,23 @@ class Generated_Form {	// by Faguss (faguss@o2.pl) 06.12.19
 				$wrap           = " ";
 
 				if ($inline_wrap)
-					$html .= "</DIV>";
+					$html .= "</div>";
 			}//----------------------------------------------------------------------------------------------------------------------------
 
 
 			// Close wrap
 			if ($wrap!=""  &&  !$inline_enabled) {
 				if ($this->add_input_container)
-					$html .= "</DIV>";
+					$html .= "</div>";
 
-				$html .= "</DIV>";
+				$html .= "</div>";
 			}
 		}
 
-		$html .= "</FIELDSET></FORM>";
+		$html .= "</fieldset></form>";
 
 		if ($this->add_container)
-			$html .= "</DIV></DIV>";
+			$html .= "</div></div>";
 
 		return $html;
 	}

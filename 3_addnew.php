@@ -79,7 +79,7 @@ if (in_array($form->hidden["form_display"],["Add New","Edit"])) {
 
 
 // Title can change as well
-$form->title = "{$form->hidden["form_display"]} Store <B>{$form->hidden["store_name"]}</B>";
+$form->title = "{$form->hidden["form_display"]} Store <b>{$form->hidden["store_name"]}</b>";
 
 echo $form->display();
 

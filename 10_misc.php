@@ -26,7 +26,7 @@ $form1->id    = "myform1";
 $form1->title = $form1->id;
 
 $form1->add_text("Token");
-$form1->add_html("<SCRIPT TYPE=\"text/javascript\">$(':input','#{$form1->id}').val('{$form1->hidden["csrf"]}');</SCRIPT>");
+$form1->add_html("<script type=\"text/javascript\">$(':input','#{$form1->id}').val('{$form1->hidden["csrf"]}');</script>");
 $form1->add_button("","Display");
 
 echo $form1->display();
@@ -71,9 +71,9 @@ $form4->title         = "Custom wrap";
 $form4->add_text("Text");
 
 echo "
-<DIV CLASS=\"col-lg-6\" 
-STYLE=\"border:2px solid #6da221; border-radius:2em; margin:1em; background:linear-gradient(to bottom, rgba(220, 246, 218, 0.5) 0%, rgba(183, 227, 188, 0.5) 100%); background-repeat:repeat-x;\">" 
-. $form4->display() . "</DIV>";
+<div class=\"col-lg-6\" 
+style=\"border:2px solid #6da221; border-radius:2em; margin:1em; background:linear-gradient(to bottom, rgba(220, 246, 218, 0.5) 0%, rgba(183, 227, 188, 0.5) 100%); background-repeat:repeat-x;\">" 
+. $form4->display() . "</div>";
 
 
 //------------------------------------------------------------------------------------------------------------------------
@@ -94,7 +94,7 @@ Here's a recreation of the example from the Bootstrap page: */
 
 $form5->add_text("Name",null,"","Jane Doe");
 $form5->add_text("Email",null,"","jane.doe@example.com");
-$form5->add_button("","Send invitation",null,"btn-default",null,"TYPE='button'");
+$form5->add_button("","Send invitation",null,"btn-default",null,"type='button'");
 
 $form5->title = $form5->form_class;
 $form5->size  = 8;
@@ -142,18 +142,19 @@ $form7->add_text("control1","Inline 2","","","txeT");
 $form7->add_select("control2","","",[4,5,6],5);
 
 $form7->change_control(["control1","control2"], ["Inline"=>6]);
-$form7->change_control("control2"             , ["CloseInline"=>true]);
+$form7->change_control("control2"             , ["CloseInline"=>true, "DivInline"=>"style=\"border:1px dotted;\""]);
 
 /* Inline is closed when:
 - next control doesn't have Inline property
 - current control has CloseInline property
 - or it's the last control in the array
 
-Control is wrapped in additional column and Inline number is its width 
-Alternatively use negative value (for the first item) to disable this wrapping */
+Control is wrapped in additional column and Inline number is its width. You can change its HTML attributes by using "DivInline" property.
+Alternatively use negative value (for the first item) to disable this wrapping 
+*/
 
-$form7->add_button("", "Yes", null, "btn-primary btn-success", null, "TYPE='button'");
-$form7->add_button("", "Nah", null, "btn-primary btn-danger", null, "TYPE='button'");
+$form7->add_button("", "Yes", null, "btn-primary btn-success", null, "type='button'");
+$form7->add_button("", "Nah", null, "btn-primary btn-danger", null, "type='button'");
 
 $form7->change_control(["Value"=>["Yes","Nah"]], ["Inline"=>-1]);
 
@@ -163,7 +164,7 @@ $form7->add_space();
 // Group - custom HTML property for the DIV containing label and control
 
 $i = $form7->add_text("Group",null,"","Click on the link to hide/show entire group");
-$form7->controls[$i]["Group"] = "ID=\"ShowHideText\"";
+$form7->controls[$i]["Group"] = "id=\"ShowHideText\"";
 $form7->add_html("<A onClick=\"$('#ShowHideText').toggle();\">Toggle</A>");
 
 
@@ -171,14 +172,14 @@ $form7->add_html("<A onClick=\"$('#ShowHideText').toggle();\">Toggle</A>");
 but this can be overriden by adding "ID" property */
 
 $form7->controls[$i]["ID"] = "NiceText";
-$form7->add_html("<A STYLE=\"float:right\" onClick=\"$('#NiceText').val('The quick brown fox jumps over the lazy dog');\">Fill</A><BR /><BR />");
+$form7->add_html("<a style=\"float:right\" onClick=\"$('#NiceText').val('The quick brown fox jumps over the lazy dog');\">Fill</a><br><br>");
 
 
 // Property - custom HTML property for the control
 
 $form7->controls[
 	$form7->add_text("Property",null,"","Readonly input here…") 
-]["Property"] = "READONLY";
+]["Property"] = "readonly";
 
 
 // LabelClass - replaces CSS class of the label tag
@@ -198,14 +199,15 @@ $form7->controls[] = [
 	"Type"     => "Button", 
 	"Class"    => "btn-primary", 
 	"Text"     => "Button with label and help",
-	"Property" => "TYPE='button'"
+	"Property" => "type='button'"
 ];
 
 
 // For static control change "Type" property to "Static"
+// Property "Text" will be displayed. If not present then value (from form->data or a default) will be shown instead
 
-$form7->add_text("static", "Static Control", "", "", "Plain Text");
-$form7->change_control(-1, ["Type"=>"Static"]);
+$form7->add_text("static", "Static Control");
+$form7->change_control(-1, ["Type"=>"Static", "Text"=>"<i>Plain Text</i>"]);
 
 
 // To add a CSS class to control change its "class" property
@@ -244,7 +246,7 @@ They have to be CSS or JS scripts */
 $form8 = new Generated_Form([], $csrf);
 $form8->include_file(["usersc/js/custom.js","usersc/css/custom.css"]);
 
-$form8->add_html(implode("<BR />",$form8->external_files));
+$form8->add_html(implode("<br>",$form8->external_files));
 $form8->title = "Included files";
 echo $form8->display();
 
