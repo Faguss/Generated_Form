@@ -27,6 +27,9 @@ Made by [Faguss](https://ofp-faguss.com/). See [forum](https://userspice.com/for
 
 ## Version history:
 
+### 10.04.22
+* updated "moment.js" from 2.24.0 to 2.29.2
+
 ### 28.07.21
 * added file: "pl.js"
 * added property "DivInline" to modify attributes for extra div wrap for inlined controls
